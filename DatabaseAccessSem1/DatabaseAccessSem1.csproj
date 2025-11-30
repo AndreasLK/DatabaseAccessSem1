@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <None Update="Data\EksamenSem1.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using DatabaseAccessSem1.Repository;
+using System.Runtime.InteropServices;
 
 namespace DatabaseAccessSem1
 {
@@ -6,23 +7,28 @@ namespace DatabaseAccessSem1
     {
         static void Main(string[] args)
         {
-            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "EksamenSem1.db");
-            string sqliteConnString = $"Data Source={dbPath}";
+            string _runningPath = AppDomain.CurrentDomain.BaseDirectory;
+            string _projectPath = Path.GetFullPath(Path.Combine(_runningPath, @"..\..\..\"));
+            string _dbPath = Path.Combine(_projectPath, "Data", "EksamenSem1.db"); //Fulde path doneret af Gemini
+            string sqliteConnString = $"Data Source={_dbPath}"; //Alt dette er for at sikre der ændres i den rigtige database. Slipper vi for med MSSQL serveren
 
             IDbConnectionFactory dbFactory = new SqliteConnectionFactory(sqliteConnString);
 
-            DbHandler dbHandler = new DbHandler(dbFactory);
+            var memberRepo = new MemberRepository(dbFactory);
 
-            IEnumerable<Member> allMembers = dbHandler.GetAllMembers();
-            foreach (Member member in allMembers)
+            var _temp = new Member
             {
-                Console.WriteLine(member.FirstName);
-            }
+                FirstName = "Test",
+                LastName = "Også Test",
+                DateOfBirth = new DateTime(1995, 5, 12),
+                Email = "test@jegErEnTe.st",
+                PhoneNumber = 88888888,
+                MemberType = 1,
+                Active = true
+            };
+            var test = memberRepo.Create(_temp);
 
-            var search = dbHandler.FindMemberIds(active: true);
-
-            var individual = dbHandler.GetMemberById(search.First());
-            Console.WriteLine($"{individual.FirstName},{individual.LastName}");
+            Console.WriteLine(test.ToString());
         }
     }
 }
