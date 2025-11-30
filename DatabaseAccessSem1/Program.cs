@@ -19,7 +19,7 @@ namespace DatabaseAccessSem1
                 Console.WriteLine(member.FirstName);
             }
 
-            var search = dbHandler.FindMemberIds(Active: true);
+            var search = dbHandler.FindMemberIds(active: true);
 
             var individual = dbHandler.GetMemberById(search.First());
             Console.WriteLine($"{individual.FirstName},{individual.LastName}");
