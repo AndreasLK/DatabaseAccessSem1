@@ -11,7 +11,7 @@ namespace DatabaseAccessSem1
 
     public record Member
     {
-        public int MemberID { get; init; }
+        public int memberID { get; init; }
         public string FirstName { get; init; }
         public string LastName { get; init; }
         public DateTime DateOfBirth { get; init; }

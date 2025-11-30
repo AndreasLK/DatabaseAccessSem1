@@ -89,10 +89,45 @@ namespace DatabaseAccessSem1
 
         public IEnumerable<int> FindSessionIds(
             string? SessionType = null,
-            DateTime? DateTime = null,
-            int? MaxMembers = null)
+            DateTime? DateTimeStart = null,
+            DateTime? DateTimeEnd = null,
+            int? MaxMembers = null,
+            int? MinMembers = null)
         {
+            using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
+                                                                  // 1. Start with a basic query that selects ALL columns so the Member object can be filled
+            var sqlBuilder = new StringBuilder("SELECT SessionID FROM Sessions WHERE 1=1"); //Søger efter alle linjer hvor 1=1 (som er alle) og tilføjer senere mere præcise instruktioner
 
+            // 2. Create a container for your safe parameters
+            var parameters = new DynamicParameters();
+
+            if (!string.IsNullOrEmpty(SessionType))
+            {
+                sqlBuilder.Append(" AND SessionType = @SessionType");
+                parameters.Add("SessionType", SessionType);
+            }
+            if (DateTimeStart.HasValue)
+            {
+                sqlBuilder.Append(" AND DateTime >= @DateTimeStart");
+                parameters.Add("DateTimeStart", DateTimeStart);
+            }
+            if (DateTimeEnd.HasValue)
+            {
+                sqlBuilder.Append(" AND DateTime < @DateTimeEnd");
+                parameters.Add("DateTimeEnd", DateTimeEnd);
+            }
+            if (MaxMembers.HasValue)
+            {
+                sqlBuilder.Append(" AND MaxMembers <= @MaxMembers");
+                parameters.Add("MaxMembers", MaxMembers);
+            }
+            if (MinMembers.HasValue)
+            {
+                sqlBuilder.Append(" AND MaxMembers >= @MinMembers");
+                parameters.Add("MinMembers", MinMembers);
+            }
+
+            return connection.Query<int>(sqlBuilder.ToString(), parameters); // Selve forespørgsel til database
 
         }
 
