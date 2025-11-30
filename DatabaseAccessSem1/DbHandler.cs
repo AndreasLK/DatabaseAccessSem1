@@ -1,8 +1,4 @@
 ﻿using Dapper;
-using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Reflection;
 using System.Text;
 
 namespace DatabaseAccessSem1
@@ -19,16 +15,16 @@ namespace DatabaseAccessSem1
         public IEnumerable<Member> GetAllMembers()
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
-            
-            string sql = "SELECT * FROM Customers"; 
+
+            string sql = "SELECT * FROM Customers";
             return connection.Query<Member>(sql); // Selve forespørgsel til database
         }
 
         public IEnumerable<int> FindMemberIds(
-            string? firstName = null, 
-            string? lastName = null, 
-            DateTime? dateOfBirth = null, 
-            string? email = null, 
+            string? firstName = null,
+            string? lastName = null,
+            DateTime? dateOfBirth = null,
+            string? email = null,
             int? phoneNumber = null,
             int? memberType = null,
             bool? active = null)
@@ -80,7 +76,7 @@ namespace DatabaseAccessSem1
             if (active.HasValue)
             {
                 sqlBuilder.Append(" AND Active = @Active");
-                parameters.Add("Active", active); 
+                parameters.Add("Active", active);
             }
 
 
@@ -217,8 +213,6 @@ namespace DatabaseAccessSem1
 
             return connection.Query<int>(sql, new { SessionID = sessionID });
         }
-
-
 
     }
 }
