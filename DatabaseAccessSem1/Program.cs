@@ -15,6 +15,8 @@ namespace DatabaseAccessSem1
             IDbConnectionFactory dbFactory = new SqliteConnectionFactory(sqliteConnString);
 
             var memberRepo = new MemberRepository(dbFactory);
+            var sessionRepo = new SessionRepository(dbFactory);
+            var memberGroupRepo = new MemberGroupRepository(dbFactory);
 
             var _temp = new Member
             {
@@ -27,9 +29,14 @@ namespace DatabaseAccessSem1
                 MemberType = 1,
                 Active = true
             };
-            var test = memberRepo.Remove(5001);
 
-            Console.WriteLine(test.ToString());
+            var x = memberGroupRepo.GetSessions(1230);
+
+            foreach (Session session in x)
+            {
+                Console.WriteLine(session.ToString());
+            }
+            
         }
     }
 }

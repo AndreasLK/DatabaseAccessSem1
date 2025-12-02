@@ -5,12 +5,10 @@ using System.Text;
 
 namespace DatabaseAccessSem1.Repository
 {
-    internal class InstructorRepository
+    public class InstructorRepository
     {
         private readonly IDbConnectionFactory _dbFactory;
         public InstructorRepository(IDbConnectionFactory dbFactory) { _dbFactory = dbFactory; }
-
-        
 
         public Instructor Create(Instructor instructor)
         {

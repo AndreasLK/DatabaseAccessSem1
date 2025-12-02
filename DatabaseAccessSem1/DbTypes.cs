@@ -35,6 +35,7 @@ namespace DatabaseAccessSem1
         public int? SessionID { get; init; }
         public string? SessionType { get; init; }
         public DateTime? DateTime { get; init; }
+        public int? SessionDuration { get; init; }
         public int? MaxMembers { get; init; }
     }
 
@@ -45,7 +46,7 @@ namespace DatabaseAccessSem1
         public int? SessionID { get; init; }
     }
 
-    public record InstructorGroups
+    public record InstructorGroup
     {
         public int? GroupingID { get; init; }
         public int? InstructorID { get; init; }
