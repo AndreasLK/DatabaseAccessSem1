@@ -18,7 +18,8 @@ namespace DatabaseAccessSem1
 
             var _temp = new Member
             {
-                FirstName = "Test",
+                MemberID = 5001,
+                FirstName = "Test 3",
                 LastName = "Også Test",
                 DateOfBirth = new DateTime(1995, 5, 12),
                 Email = "test@jegErEnTe.st",
@@ -26,7 +27,7 @@ namespace DatabaseAccessSem1
                 MemberType = 1,
                 Active = true
             };
-            var test = memberRepo.Create(_temp);
+            var test = memberRepo.Remove(5001);
 
             Console.WriteLine(test.ToString());
         }
