@@ -73,4 +73,3 @@ namespace DatabaseAccessSem1.Repository
     }
 
 }
-}

@@ -16,27 +16,16 @@ namespace DatabaseAccessSem1
 
             var memberRepo = new MemberRepository(dbFactory);
             var sessionRepo = new SessionRepository(dbFactory);
+            var instructorRepo = new InstructorRepository(dbFactory);
             var memberGroupRepo = new MemberGroupRepository(dbFactory);
+            var instructorGroupRepo = new InstructorGroupRepository(dbFactory);
 
-            var _temp = new Member
+
+            //Test af hver funktion
+            memberRepo.Create(new Member
             {
-                MemberID = 5001,
-                FirstName = "Test 3",
-                LastName = "Også Test",
-                DateOfBirth = new DateTime(1995, 5, 12),
-                Email = "test@jegErEnTe.st",
-                PhoneNumber = 88888888,
-                MemberType = 1,
-                Active = true
-            };
-
-            var x = memberGroupRepo.GetSessions(1230);
-
-            foreach (Session session in x)
-            {
-                Console.WriteLine(session.ToString());
-            }
-            
+                FirstName = "John"
+            });
         }
     }
 }
