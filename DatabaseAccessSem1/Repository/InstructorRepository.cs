@@ -69,7 +69,7 @@ namespace DatabaseAccessSem1.Repository
             string sql = "SELECT * FROM Instructers";
             return connection.Query<Instructor>(sql); // Selve forespørgsel til database
         }
-
+        
         public Member GetByID(int InstructorID)
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
