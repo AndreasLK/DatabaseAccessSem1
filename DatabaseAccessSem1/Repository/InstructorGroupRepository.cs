@@ -36,16 +36,16 @@ namespace DatabaseAccessSem1.Repository
 
         }
 
-        public IEnumerable<Session> GetInstructors(int sessionID)
+        public IEnumerable<Instructor> GetInstructors(int sessionID)
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
 
             string sql = @"SELECT Instructors.* FROM InstructorGroups
-                        RIGHT JOIN Customers
+                        RIGHT JOIN Instructors
                         ON InstructorGroups.InstructorID = Instructors.InstructorID
                         WHERE InstructorGroups.SessionID = @SessionID";
 
-            return connection.Query<Session>(sql, new { SessionID = sessionID });
+            return connection.Query<Instructor>(sql, new { SessionID = sessionID });
 
         }
         public int Update(InstructorGroup instructorGroup)

@@ -23,7 +23,7 @@ namespace DatabaseAccessSem1.Repository
             return connection.QuerySingle<Session>(sql, session);
         }
 
-        public IEnumerable<int> FindSessionIds(
+        public IEnumerable<int> GetID(
             string? sessionType = null,
             DateTime? dateTimeStart = null,
             DateTime? dateTimeEnd = null,
@@ -51,7 +51,7 @@ namespace DatabaseAccessSem1.Repository
             }
             if (dateTimeEnd.HasValue)
             {
-                sqlBuilder.Append(" AND DateTime < @DateTimeEnd");
+                sqlBuilder.Append(" AND DateTime <= @DateTimeEnd");
                 parameters.Add("DateTimeEnd", dateTimeEnd);
             }
             if (sessionDurationStart.HasValue)

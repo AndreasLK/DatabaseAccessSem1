@@ -36,7 +36,7 @@ namespace DatabaseAccessSem1.Repository
 
         }
 
-        public IEnumerable<Session> GetMembers(int sessionID)
+        public IEnumerable<Member> GetMembers(int sessionID)
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
 
@@ -45,7 +45,7 @@ namespace DatabaseAccessSem1.Repository
                         ON MemberGroups.MemberID = Customers.MemberID
                         WHERE MemberGroups.SessionID = @SessionID";
 
-            return connection.Query<Session>(sql, new { SessionID = sessionID });
+            return connection.Query<Member>(sql, new { SessionID = sessionID });
 
         }
         public int Update(MemberGroup memberGroup)

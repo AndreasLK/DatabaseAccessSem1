@@ -20,35 +20,6 @@ namespace DatabaseAccessSem1
             var memberGroupRepo = new MemberGroupRepository(dbFactory);
             var instructorGroupRepo = new InstructorGroupRepository(dbFactory);
 
-
-            //Test af hver funktion
-            var testCreateMember = memberRepo.Create(new Member
-            {
-                FirstName = "John",
-                LastName = "Johnsen",
-                MemberType = 1,
-                Active = true
-            });
-            Console.WriteLine("testCreateMember  " + testCreateMember.ToString());
-
-
-            var testUpdateMember = memberRepo.Update(
-                testCreateMember with
-                {
-                    DateOfBirth = new DateTime(1994, 12, 2)
-                });
-
-            Console.WriteLine("testUpdateMember  " + testUpdateMember.ToString());
-
-            var testGetMember = memberRepo.GetID(firstName: testCreateMember.FirstName, lastName: testCreateMember.LastName);
-
-            Console.WriteLine("testGetIDMember " + "Første: " + testGetMember.First().ToString() + "ResultatMængde: " + testGetMember.Count());
-
-            var test = memberRepo.GetByID(testCreateMember.MemberID ?? -1);
-
-
-
-
         }
     }
 }

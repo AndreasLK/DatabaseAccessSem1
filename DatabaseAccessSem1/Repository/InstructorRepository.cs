@@ -29,7 +29,7 @@ namespace DatabaseAccessSem1.Repository
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
                                                                   // 1. Start with a basic query that selects ALL columns so the Member object can be filled
-            var sqlBuilder = new StringBuilder("SELECT InstructorID FROM Instructers WHERE 1=1");
+            var sqlBuilder = new StringBuilder("SELECT InstructorID FROM Instructors WHERE 1=1");
 
             // 2. Create a container for your safe parameters
             var parameters = new DynamicParameters();
@@ -66,7 +66,7 @@ namespace DatabaseAccessSem1.Repository
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
 
-            string sql = "SELECT * FROM Instructers";
+            string sql = "SELECT * FROM Instructors";
             return connection.Query<Instructor>(sql); // Selve forespørgsel til database
         }
         
@@ -74,7 +74,7 @@ namespace DatabaseAccessSem1.Repository
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
 
-            string sql = "SELECT * FROM Instructers WHERE InstructorID = @InstructorID";
+            string sql = "SELECT * FROM Instructors WHERE InstructorID = @InstructorID";
 
             return connection.QuerySingle<Member>(sql, new { InstructorID = InstructorID });
         }
