@@ -19,7 +19,6 @@ namespace DatabaseAccessSem1
             var instructorRepo = new InstructorRepository(dbFactory);
             var memberGroupRepo = new MemberGroupRepository(dbFactory);
             var instructorGroupRepo = new InstructorGroupRepository(dbFactory);
-
         }
     }
 }

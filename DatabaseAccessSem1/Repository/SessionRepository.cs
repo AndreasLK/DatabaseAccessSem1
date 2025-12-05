@@ -17,8 +17,8 @@ namespace DatabaseAccessSem1.Repository
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
 
             string sql = @"INSERT INTO Sessions 
-                        (SessionType, DateTime, MaxMembers) Values 
-                        (@SessionType, @DateTime, @MaxMembers) RETURNING *;";
+                        (SessionType, DateTime, SessionDuration, MaxMembers, Location) Values 
+                        (@SessionType, @DateTime, @SessionDuration, @MaxMembers, @Location) RETURNING *;";
 
             return connection.QuerySingle<Session>(sql, session);
         }
@@ -30,7 +30,8 @@ namespace DatabaseAccessSem1.Repository
             int? sessionDurationStart = null,
             int? sessionDurationEnd = null,
             int? maxMembers = null,
-            int? minMembers = null)
+            int? minMembers = null,
+            string? location = null)
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
                                                                   // 1. Start with a basic query that selects ALL columns so the Member object can be filled
@@ -73,6 +74,11 @@ namespace DatabaseAccessSem1.Repository
             {
                 sqlBuilder.Append(" AND MaxMembers >= @MinMembers");
                 parameters.Add("MinMembers", minMembers);
+            }
+            if (!string.IsNullOrEmpty(location))
+            {
+                sqlBuilder.Append(" AND Location LIKE @Location");
+                parameters.Add("Location", location);
             }
 
             return connection.Query<int>(sqlBuilder.ToString(), parameters); // Selve forespørgsel til database
@@ -119,7 +125,9 @@ namespace DatabaseAccessSem1.Repository
                         SET
                             SessionType = @SessionType,
                             DateTime = @DateTime,
-                            MaxMembers = @MaxMembers
+                            SessionDuration = @SessionDuration,
+                            MaxMembers = @MaxMembers,
+                            Location = @Location
                         WHERE SessionID = @SessionID";
             return connection.Execute(sql, session); //Returnere mængden af rækker opdateret (forhåbeligt 1)
         }

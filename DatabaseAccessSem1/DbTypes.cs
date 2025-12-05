@@ -37,6 +37,7 @@ namespace DatabaseAccessSem1
         public required DateTime DateTime { get; init; }
         public int? SessionDuration { get; init; }
         public required int MaxMembers { get; init; }
+        public string? Location { get; init; }
     }
 
     public record MemberGroup
