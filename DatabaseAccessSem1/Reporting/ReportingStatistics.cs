@@ -58,7 +58,7 @@ namespace DatabaseAccessSem1.Reporting
             catch (Exception ex)
             {
                 Console.WriteLine($"FEJL ved lagring af rapport: {ex.Message}");
-                // Optionally log to console as well
+               
                 Console.WriteLine($"Fejl ved skrivning af rapport: {ex.Message}");
             }
         }

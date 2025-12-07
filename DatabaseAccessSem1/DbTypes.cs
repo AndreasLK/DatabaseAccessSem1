@@ -28,6 +28,12 @@ namespace DatabaseAccessSem1
         public required string LastName { get; init; }
         public required bool CertifiedForTrailRunning { get; init; }
         public required bool CertifiedForSkovYoga { get; init; }
+
+        //ændret af sandra
+        public required bool CertifiedForHIIT { get; init; }
+        public required bool CertifiedForPowerwalk { get; init; }
+        public required bool CertifiedForTrappeløb { get; init; }
+        public required bool CertifiedForMountainbike { get; init; }
     }
 
     public record Session
