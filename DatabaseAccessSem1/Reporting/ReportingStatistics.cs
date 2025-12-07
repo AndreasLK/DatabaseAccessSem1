@@ -7,8 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 
 
-//Ændret af sandra
-
+//Ændret af sandra - ved hjælp af Gemini
 namespace DatabaseAccessSem1.Reporting
 {
     public class ReportingStatistics
@@ -33,7 +32,7 @@ namespace DatabaseAccessSem1.Reporting
             var unpopularSessions = sessions.OrderBy(s => s.ParticipantCount).Take(3).ToList();
 
             var sb = new StringBuilder();
-            sb.AppendLine("Fitness Center Rapport - statestik");
+            sb.AppendLine("Fitness Center Rapport - statistik");
             sb.AppendLine($"Genereret denne Dato: {DateTime.Now}");
             sb.AppendLine();
             sb.AppendLine($"Antal aktive medlemmer: {activeMembers}");

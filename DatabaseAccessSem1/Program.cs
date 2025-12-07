@@ -1,5 +1,8 @@
 ﻿using DatabaseAccessSem1.Repository;
 using System.Runtime.InteropServices;
+using DatabaseAccessSem1.Reporting; // ændret af sandra
+using System.IO; // Til at bygge database path,
+using System;
 
 namespace DatabaseAccessSem1
 {
@@ -20,6 +23,20 @@ namespace DatabaseAccessSem1
             var memberGroupRepo = new MemberGroupRepository(dbFactory);
             var instructorGroupRepo = new InstructorGroupRepository(dbFactory);
 
+
+            // test af rapport - sandra - ved hjælp af Gemini
+            Console.WriteLine("--- Starter Rapport Test ---");
+
+            var reporter = new ReportingStatistics(memberRepo, memberGroupRepo);
+
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string fileName = $"FitnessRapport_TEST_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
+            string fullFilePath = Path.Combine(desktopPath, fileName);
+
+            // Generer rapporten - sandra - ved hjælp af gemini
+            reporter.GenerateReport(fullFilePath);
+
+            Console.WriteLine("--- Test Afsluttet. Tjek dit skrivebord. ---");
         }
     }
 }

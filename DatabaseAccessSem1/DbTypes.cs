@@ -53,7 +53,7 @@ namespace DatabaseAccessSem1
         public required int SessionID { get; init; }
     }
 
-    //ændret af sandra
+    //ændret af sandra 
     public record SessionPopularityData
     {
         public string SessionType { get; init; }

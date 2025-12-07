@@ -72,7 +72,7 @@ namespace DatabaseAccessSem1.Repository
             return connection.Execute(sql, new { GroupingID = groupingID }); //Returnere mængden af rækker opdateret (forhåbeligt 1)
         }
 
-        // ændret af sandra.
+        // ændret af sandra - Gemini.
         public IEnumerable<SessionPopularityData> GetSessionPopularity()
         {
             using var connection = _dbFactory.CreateConnection();

@@ -130,7 +130,7 @@ namespace DatabaseAccessSem1.Repository
             return connection.Execute(sql, new { MemberID = memberID });
         }
 
-        //ændret af sandra
+        //ændret af sandra - Gemini
         public int GetActiveMemberCount()
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
