@@ -52,4 +52,12 @@ namespace DatabaseAccessSem1
         public required int InstructorID { get; init; }
         public required int SessionID { get; init; }
     }
+
+    //ændret af sandra
+    public record SessionPopularityData
+    {
+        public string SessionType { get; init; }
+        public int ParticipantCount { get; init; }
+    }
+
 }

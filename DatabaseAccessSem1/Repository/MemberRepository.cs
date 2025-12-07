@@ -130,5 +130,13 @@ namespace DatabaseAccessSem1.Repository
             return connection.Execute(sql, new { MemberID = memberID });
         }
 
+        //ændret af sandra
+        public int GetActiveMemberCount()
+        {
+            using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
+            string sql = @"SELECT COUNT(*) FROM Customers WHERE Active = @IsActive";
+            return connection.QuerySingle<int>(sql, new { IsActive = true});
+        }
+
     }
 }
