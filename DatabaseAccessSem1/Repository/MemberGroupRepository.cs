@@ -72,8 +72,8 @@ namespace DatabaseAccessSem1.Repository
             return connection.Execute(sql, new { GroupingID = groupingID }); //Returnere mængden af rækker opdateret (forhåbeligt 1)
         }
 
-        // ændret af sandra - Gemini.
-        public IEnumerable<SessionPopularityData> GetSessionPopularity()
+        // ændret af sandra - Gemini - metode til at få information om hvilke hold er mest populære.  
+        public IEnumerable<SessionPopularityData> GetSessionPopularity() // IEnumerable = returtype.
         {
             using var connection = _dbFactory.CreateConnection();
         string sql = @"SELECT S.SessionType, 

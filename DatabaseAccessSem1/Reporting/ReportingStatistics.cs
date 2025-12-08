@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 
 
-//Ændret af sandra - ved hjælp af Gemini
+//Ændret af sandra - ved hjælp af Gemini - oprettelse af selve rapporten
 namespace DatabaseAccessSem1.Reporting
 {
     public class ReportingStatistics
@@ -21,7 +21,7 @@ namespace DatabaseAccessSem1.Reporting
             _memberGroupRepository = memberGroupRepository;
         }
 
-        public void GenerateReport(string filePath)
+        public void GenerateReport(string filePath) // metode til at genere rapport med statistik. 
         {
             int activeMembers = _memberRepository.GetActiveMemberCount();
 
@@ -53,7 +53,7 @@ namespace DatabaseAccessSem1.Reporting
 
             try
             {
-                File.WriteAllText(filePath, sb.ToString());
+                File.WriteAllText(filePath, sb.ToString()); //metode til at skrive selve tekstfilen der skal gemmes på harddisken.
                 Console.WriteLine($"Rapport genereret og gemt til:\n{filePath}");
             }
             catch (Exception ex)

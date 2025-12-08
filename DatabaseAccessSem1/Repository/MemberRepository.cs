@@ -130,7 +130,7 @@ namespace DatabaseAccessSem1.Repository
             return connection.Execute(sql, new { MemberID = memberID });
         }
 
-        //ændret af sandra - Gemini
+        //ændret af sandra - Gemini - oprettelse af metode til at få information om antallet af aktive medlemmer.
         public int GetActiveMemberCount()
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
