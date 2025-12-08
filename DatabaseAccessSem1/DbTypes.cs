@@ -62,8 +62,9 @@ namespace DatabaseAccessSem1
     //ændret af sandra 
     public record SessionPopularityData
     {
-        public string SessionType { get; init; }
-        public int ParticipantCount { get; init; }
+        public required string SessionType { get; init; }
+        public required int ParticipantCount { get; init; }
+        public required decimal ParticipantPercentage { get; init; }
     }
 
 }

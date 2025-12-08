@@ -41,6 +41,7 @@ namespace DatabaseAccessSem1.Reporting
             foreach (var session in popularSessions)
             {
                 sb.AppendLine($" - {session.SessionType}: {session.ParticipantCount} deltagere");
+                sb.AppendLine($" - {session.SessionType}: {session.ParticipantPercentage}%");
             }
             sb.AppendLine();
 

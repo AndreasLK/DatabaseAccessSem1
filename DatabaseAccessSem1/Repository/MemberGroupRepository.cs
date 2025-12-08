@@ -76,11 +76,17 @@ namespace DatabaseAccessSem1.Repository
         public IEnumerable<SessionPopularityData> GetSessionPopularity()
         {
             using var connection = _dbFactory.CreateConnection();
-        string sql = @"SELECT S.SessionType, COUNT(MG.MemberID) AS ParticipantCount
+        string sql = @"SELECT S.SessionType, 
+                        COUNT(MG.MemberID) AS ParticipantCount,
+                        ROUND(
+                            (COUNT(MG.MemberID) * 100.0) / 
+                            (SELECT SUM(MaxMembers)
+                            FROM Sessions s2 WHERE s2.SessionType = S.SessionType), 
+                        1) As ParticipantPercentage
                        FROM MemberGroups mg
                        INNER JOIN Sessions s ON mg.SessionID = s.SessionID
                        GROUP BY S.SessionType
-                       ORDER BY ParticipantCount DESC";
+                       ORDER BY ParticipantPercentage DESC"; //s2 istedet for S for at kende forskel på specifik Session frem for alle
             return connection.Query<SessionPopularityData>(sql); }
     }
 }

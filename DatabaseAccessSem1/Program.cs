@@ -25,6 +25,7 @@ namespace DatabaseAccessSem1
             var instructorGroupRepo = new InstructorGroupRepository(dbFactory);
 
 
+            //TODO // WARNING MIGRATE ALL CREATE STATEMENTS TO MSSQL. (RETURNING * IS SQLITE SPECIFIC)
             //::::: DONT MESS WITH THIS :::::::::
 
             // test af rapport - sandra - ved hjælp af Gemini
