@@ -10,6 +10,7 @@ namespace DatabaseAccessSem1
     {
         static void Main(string[] args)
         {
+            //::::: DONT MESS WITH THIS ::::::::: 
             string _runningPath = AppDomain.CurrentDomain.BaseDirectory;
             string _projectPath = Path.GetFullPath(Path.Combine(_runningPath, @"..\..\..\"));
             string _dbPath = Path.Combine(_projectPath, "Data", "EksamenSem1.db"); //Fulde path doneret af Gemini
@@ -23,6 +24,8 @@ namespace DatabaseAccessSem1
             var memberGroupRepo = new MemberGroupRepository(dbFactory);
             var instructorGroupRepo = new InstructorGroupRepository(dbFactory);
 
+
+            //::::: DONT MESS WITH THIS :::::::::
 
             // test af rapport - sandra - ved hjælp af Gemini
             Console.WriteLine("--- Starter Rapport Test ---");
