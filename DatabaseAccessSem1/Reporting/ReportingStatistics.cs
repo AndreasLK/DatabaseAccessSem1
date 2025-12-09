@@ -31,6 +31,14 @@ namespace DatabaseAccessSem1.Reporting
 
             var unpopularSessions = sessions.OrderBy(s => s.ParticipantCount).Take(3).ToList();
 
+
+            // hentning af data gennem metoden GetBusiestDayOfWeek (travleste dage på ugen).
+            var dayStats = _memberGroupRepository.GetBusiestDayOfWeek().ToList();
+
+            // at finde de mest og mindst populære dage overordnet (eller vælg specifikke hold)
+            var busiestDay = dayStats.OrderByDescending(d => d.ParticipantCount).First();
+            var slowestDay = dayStats.OrderBy(d => d.ParticipantCount).First();
+
             var sb = new StringBuilder();
             sb.AppendLine("Fitness Center Rapport - statistik");
             sb.AppendLine($"Genereret denne Dato: {DateTime.Now}");
@@ -50,6 +58,11 @@ namespace DatabaseAccessSem1.Reporting
             {
                 sb.AppendLine($" - {session.SessionType}: {session.ParticipantCount} deltagere");
             }
+
+            sb.AppendLine();
+            sb.AppendLine("--- UGE DAG ANALYSE ---");
+            sb.AppendLine($"Den mest populære ugedag (alle hold): {busiestDay.DayOfWeek} ({busiestDay.ParticipantCount} tilmeldinger)");
+            sb.AppendLine($"Den mindst populære ugedag (alle hold): {slowestDay.DayOfWeek} ({slowestDay.ParticipantCount} tilmeldinger)");
 
             try
             {

@@ -69,4 +69,15 @@ namespace DatabaseAccessSem1
         // required betyder, at en værdi skal tildeles når du opretter objektet. dette forhindrer man glemmer at give recordet en værdi.
     }
 
+    public record SessionDayData
+    {
+        // Mandag, Tirsdag, etc.
+        public required string DayOfWeek { get; init; }
+
+        // Holdnavnet
+        public required string SessionType { get; init; }
+
+        // Det samlede antal deltagere på den ugedag
+        public required int ParticipantCount { get; init; }
+    }
 }
