@@ -72,8 +72,8 @@ namespace DatabaseAccessSem1.Repository
             return connection.Execute(sql, new { GroupingID = groupingID }); //Returnere mængden af rækker opdateret (forhåbeligt 1)
         }
 
-        // ændret af sandra - Gemini.
-        public IEnumerable<SessionPopularityData> GetSessionPopularity()
+        // ændret af sandra - Gemini - metode til at få information fra databasen om hvilke hold er mest populære.  
+        public IEnumerable<SessionPopularityData> GetSessionPopularity() // IEnumerable = returtype.
         {
             using var connection = _dbFactory.CreateConnection();
         string sql = @"SELECT S.SessionType, 
@@ -88,5 +88,34 @@ namespace DatabaseAccessSem1.Repository
                        GROUP BY S.SessionType
                        ORDER BY ParticipantPercentage DESC"; //s2 istedet for S for at kende forskel på specifik Session frem for alle
             return connection.Query<SessionPopularityData>(sql); }
+
+
+        // Metode til at finde de mest travle dage på ugen - ændret af sandra - ved hjælp fra gemini.
+        public IEnumerable<SessionDayData> GetBusiestDayOfWeek()
+        {
+            using var connection = _dbFactory.CreateConnection();
+
+            // SQL-forespørgslen bruger SQLite-funktionen strftime('%w') til at finde ugedagen (0=Søndag, 1=Mandag...)
+            string sql = @"
+        SELECT 
+            CASE CAST(STRFTIME('%w', S.DateTime) AS INT) 
+                WHEN 0 THEN 'Søndag' 
+                WHEN 1 THEN 'Mandag' 
+                WHEN 2 THEN 'Tirsdag' 
+                WHEN 3 THEN 'Onsdag' 
+                WHEN 4 THEN 'Torsdag' 
+                WHEN 5 THEN 'Fredag' 
+                ELSE 'Lørdag' 
+            END AS DayOfWeek,
+            S.SessionType, 
+            COUNT(MG.MemberID) AS ParticipantCount
+        FROM MemberGroups mg
+        INNER JOIN Sessions s ON mg.SessionID = s.SessionID
+        GROUP BY S.SessionType, DayOfWeek 
+        ORDER BY ParticipantCount DESC";
+
+            return connection.Query<SessionDayData>(sql);
+        } // CASE...END: dette oversætter det nummerede resultat (0-6) til læselige danske ugedage.
+          // GROUP BY S.SessionType, DayOfWeek: sikrer at deltagerne tælles separat for hvert hold på hver ugedag.
     }
 }
