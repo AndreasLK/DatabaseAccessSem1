@@ -24,16 +24,32 @@ namespace DatabaseAccessSem1.Repository
             return connection.QuerySingle<MemberGroup>(sql, memberGroup);
         }
 
-        public IEnumerable<Session>GetSessions(int memberID)
+        public IEnumerable<Session>GetSessions(int memberID, DateTime? sessionStart = null, DateTime? sessionEnd = null)
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
 
-            string sql = @"SELECT Sessions.* FROM MemberGroups
-                        RIGHT JOIN Sessions
-                        ON MemberGroups.SessionID = Sessions.SessionID
-                        WHERE MemberGroups.MemberID = @MemberID";
+            var parameters = new DynamicParameters();
+            parameters.Add("MemberID", memberID);
 
-            return connection.Query<Session>(sql, new { MemberID = memberID });
+            var sqlBuilder = new StringBuilder();
+            sqlBuilder.Append(@"SELECT s.* FROM Sessions
+                        INNER JOIN Membergroups mg ON s.SessionID = mg.SessionID
+                        WHERE MemberGroups.MemberID = @MemberID");
+
+
+            if (sessionStart.HasValue)
+            {
+                sqlBuilder.Append(" AND Datetime >= @SessionStart");
+                parameters.Add("SessionStart", sessionStart);
+            }
+
+            if (sessionEnd.HasValue)
+            {
+                sqlBuilder.Append(" AND Datetime <= @SessionEnd");
+                parameters.Add("SessionEnd", sessionEnd);
+            }
+
+            return connection.Query<Session>(sqlBuilder.ToString(), parameters);
 
         }
 

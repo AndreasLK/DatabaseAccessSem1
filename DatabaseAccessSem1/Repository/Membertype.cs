@@ -16,14 +16,14 @@ namespace DatabaseAccessSem1.Repository
     {
 
         public MemberType type{ get; private set; }
-        public int MaxWeeklyVisit { get; private set; } 
+        public int maxWeeklyVisit { get; private set; } 
         private int currentWeeklyVisit;
         private int currentWeeklyVisitCount;
 
         public Membership(MemberType type)
         {
             Type = type;
-            MaxWeeklyVisit = GetMaxVisit(type);
+            maxWeeklyVisit = GetMaxVisit(type);
             currentWeeklyVisit = 0;
             currentWeekNumber = GetWeekNumber(DateTime.Now);
         }
@@ -73,4 +73,13 @@ namespace DatabaseAccessSem1.Repository
 
 
 }
-}
+
+//Klasse af random navn med Member, Session, Membergroup repo som init
+//Funktion "CanBook" med MemberID som input
+
+// Tjek Medlemskab // hvis 0 max 2 hold om ugen
+
+//      Medlemskab basis
+//              Tæller hold denne uge
+//              return false hvis (hold denne uge) >= 2
+// Ellers return true
