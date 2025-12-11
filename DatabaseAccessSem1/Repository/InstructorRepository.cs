@@ -15,8 +15,8 @@ namespace DatabaseAccessSem1.Repository
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
 
             string sql = @"INSERT INTO Instructors 
-                        (FirstName, LastName, CertifiedForTrailRunning, CertifiedForSkovYoga) Values 
-                        (@FirstName, @LastName, @CertifiedForTrailRunning, @CertifiedForSkovYoga) RETURNING *;";
+                        (FirstName, LastName, CertifiedForTrailRunning, CertifiedForSkovYoga, CertifiedForHIIT, CertifiedForPowerwalk, CertifiedForTrappeløb, CertifiedForMountainbike) Values 
+                        (@FirstName, @LastName, @CertifiedForTrailRunning, @CertifiedForSkovYoga, @CertifiedForHIIT, @CertifiedForPowerwalk, @CertifiedForTrappeløb, @CertifiedForMountainbike) RETURNING *;";
 
             return connection.QuerySingle<Instructor>(sql, instructor);
         }
@@ -25,7 +25,11 @@ namespace DatabaseAccessSem1.Repository
     string? firstName = null,
     string? lastName = null,
     bool? CertifiedForTrailRunning = null,
-    bool? CertifiedForSkovYoga = null)
+    bool? CertifiedForSkovYoga = null,
+    bool? CertifiedForHIIT = null,
+    bool? CertifiedForTrappeløb = null,
+    bool? CertifiedForPowerwalk = null,
+     bool? CertifiedForMountainbike = null)
         {
             using var connection = _dbFactory.CreateConnection(); //med using lukkes forbindelse automatisk efter metoden er kørt
                                                                   // 1. Start with a basic query that selects ALL columns so the Member object can be filled
@@ -59,6 +63,27 @@ namespace DatabaseAccessSem1.Repository
                 parameters.Add("CertifiedForSkovYoga", CertifiedForSkovYoga);
             }
 
+            if (CertifiedForHIIT.HasValue)
+            {
+                sqlBuilder.Append(" AND CertifiedForHIIT = @CertifiedForHIIT");
+                parameters.Add("CertifiedForHIIT", CertifiedForHIIT);
+            }
+            if (CertifiedForPowerwalk.HasValue)
+            {
+                sqlBuilder.Append(" AND CertifiedForPowerwalk = @CertifiedForPowerwalk");
+                parameters.Add("CertifiedForPowerwalk", CertifiedForPowerwalk);
+            }
+            if (CertifiedForTrappeløb.HasValue)
+            {
+                sqlBuilder.Append(" AND CertifiedForTrappeløb = @CertifiedForTrappeløb");
+                parameters.Add("CertifiedForTrappeløb", CertifiedForTrappeløb);
+            }
+            if (CertifiedForMountainbike.HasValue)
+            {
+                sqlBuilder.Append(" AND CertifiedForMountainbike = @CertifiedForMountainbike");
+                parameters.Add("CertifiedForMountainbike", CertifiedForMountainbike);
+            }
+
             return connection.Query<int>(sqlBuilder.ToString(), parameters); // Selve forespørgsel til database
         }
 
@@ -88,10 +113,14 @@ namespace DatabaseAccessSem1.Repository
                             FirstName = @FirstName,
                             LastName = @LastName,
                             CertifiedForTrailRunning = @CertifiedForTrailRunning,
-                            CertifiedForSkovYoga = @CertifiedForSkovYoga
+                            CertifiedForSkovYoga = @CertifiedForSkovYoga,
+                            CertifiedForHIIT = @CertifiedForHIIT, 
+                            CertifiedForPowerwalk = @CertifiedForPowerwalk,
+                            CertifiedForTrappeløb = @CertifiedForTrappeløb,
+                            CertifiedForMountainbike = @CertifiedForMountainbike
                         WHERE InstructorID = @InstructorID";
             return connection.Execute(sql, instructor); //Returnere mængden af rækker opdateret (forhåbeligt 1)
-        }
+        } // tilføjelse af nye certifikater - sandra
 
         public int Delete(int instructorID)
         {

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DatabaseAccessSem1; // ændret af sandra
 
 namespace DatabaseAccessSem1.Repository
 {
@@ -70,5 +71,16 @@ namespace DatabaseAccessSem1.Repository
 
             return connection.Execute(sql, new { GroupingID = groupingID }); //Returnere mængden af rækker opdateret (forhåbeligt 1)
         }
+
+        // ændret af sandra - Gemini.
+        public IEnumerable<SessionPopularityData> GetSessionPopularity()
+        {
+            using var connection = _dbFactory.CreateConnection();
+        string sql = @"SELECT S.SessionType, COUNT(MG.MemberID) AS ParticipantCount
+                       FROM MemberGroups mg
+                       INNER JOIN Sessions s ON mg.SessionID = s.SessionID
+                       GROUP BY S.SessionType
+                       ORDER BY ParticipantCount DESC";
+            return connection.Query<SessionPopularityData>(sql); }
     }
 }
