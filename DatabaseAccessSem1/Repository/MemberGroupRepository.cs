@@ -132,6 +132,10 @@ namespace DatabaseAccessSem1.Repository
 
             return connection.Query<SessionDayData>(sql);
         } // CASE...END: dette oversætter det nummerede resultat (0-6) til læselige danske ugedage.
-          // GROUP BY S.SessionType, DayOfWeek: sikrer at deltagerne tælles separat for hvert hold på hver ugedag.
-    }
+		  // GROUP BY S.SessionType, DayOfWeek: sikrer at deltagerne tælles separat for hvert hold på hver ugedag.
+
+
+		
+		
+	}
 }
